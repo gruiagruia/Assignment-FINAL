@@ -1,0 +1,31 @@
+@using Microsoft.AspNetCore.Mvc
+@namespace index
+@inject NavigationManager navMgr
+
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div>
+            <h1>Hello there!</h1>
+            <a href="Login" class="button2" @onclick="Login">Login</a>
+            <a href="Register" class="button2" @onclick="Register">Register</a>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+
+    private void Login()
+    {
+        Console.WriteLine("LOGIN PRESSED");
+        navMgr.NavigateTo("/Login");
+    }
+
+    private async Task Register()
+    {
+    // await authService.LogoutAsync();
+        navMgr.NavigateTo("/Register");
+    }
+
+}

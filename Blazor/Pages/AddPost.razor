@@ -1,0 +1,57 @@
+@page "/AddPost"
+@using Contracts
+@using Entities.Models
+@using Microsoft.AspNetCore.Components
+@inject IPostService PostService
+@inject NavigationManager NavigationManager
+
+<h3>Add New Post</h3>
+<EditForm Model="@newPost" OnValidSubmit="@AddNewPost">
+    <DataAnnotationsValidator/> 
+    <ValidationSummary/>
+    <div class="form-group">
+        <span>
+            <label>Title:</label>
+        </span>
+        <span>
+            <InputTextArea rows="2" @bind-Value="newPost.Title"/>
+        </span>
+        <span>
+            <label>Body:</label>
+        </span>
+        <span>
+            <InputTextArea rows="4" @bind-Value="newPost.Body"/>
+        </span>
+        <span>
+            <label>Author:</label>
+        </span>
+        <span>
+            <InputTextArea rows="1" @bind-Value="newPost.Owner"/>
+        </span>
+    </div>
+    <p class="actions">
+        <button class="btn btn-outline-dark" type="submit">Create</button>
+    </p>
+</EditForm>
+<label>@errorLabel</label>
+
+@code {
+    private Post newPost = new ();
+    private string errorLabel;
+
+    private async Task AddNewPost()
+    {
+        errorLabel = "";
+        try
+        {
+            await PostService.AddAsync(newPost);
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+            return;
+        }
+        
+        NavigationManager.NavigateTo("/Posts");
+    }
+}

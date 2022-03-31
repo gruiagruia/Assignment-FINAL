@@ -1,0 +1,51 @@
+@page "/Posts"
+@using Contracts
+@using Entities.Models
+@inject IPostService PostService
+@inject IJSRuntime JSRuntime;
+@inject NavigationManager navMgr
+
+<h3 class="heading">Posts</h3>
+
+@if (posts == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!posts.Any())
+{
+    <p>
+        <em>No Post items exist. Please add some.</em>
+    </p>
+}
+else
+{
+        
+    @foreach (var item in posts)
+    {
+        <div class="container" @onclick="()=>OpenPost(item.Id)">
+            <h1 class="title">@item.Title</h1>
+            <h5 class="author">Author: @item.Owner</h5>
+            <p class="text">@item.Body</p>
+        </div>
+                
+    }
+            
+}
+
+@code {
+    private ICollection<Post> posts;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        posts = await PostService.GetAsync();
+    }
+
+    private void OpenPost(int id)
+    {
+        navMgr.NavigateTo($"/ForumPost/{id}");
+    }
+
+   
+}

@@ -1,0 +1,42 @@
+@page "/ForumPost/{index:int}"
+@using Contracts
+@using Entities.Models
+@inject IPostService PostService
+
+
+@if (post == null)
+{
+    OpenPost();
+}
+
+@if (post != null)
+{
+    <div class="container">
+        <h1 class="title">@post.Title</h1>
+        <h5 class="author">Author: @post.Owner</h5>
+        <p class="text">@post.Body</p>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public int index { get; set; }
+
+    private Post post;
+
+    private async void OpenPost()
+    {
+        ICollection<Post> posts = null;
+        posts = await PostService.GetAsync();
+
+        foreach (var item in posts)
+        {
+            if (item.Id == index)
+            {
+                post = item;
+            }
+        }
+    }
+
+}
