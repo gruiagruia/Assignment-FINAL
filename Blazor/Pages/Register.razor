@@ -1,5 +1,6 @@
 @page "/Register"
 @using Blazor.Authentication
+@using Entities.Models
 @inject IAuthService authService
 @inject NavigationManager navMgr
 <AuthorizeView>
@@ -40,7 +41,9 @@
         errorLabel = "";
         try
         {
-            await authService.RegisterAsync(userName, password);
+            User user = new User(userName, password, "USER", 5);
+            Console.WriteLine(user.ToString());
+            await authService.RegisterAsync(user);
             navMgr.NavigateTo("/Login");
         }
         catch (Exception e)

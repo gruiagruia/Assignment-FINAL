@@ -32,9 +32,9 @@ public class AuthServiceImpl : IAuthService
         OnAuthStateChanged?.Invoke(principal);
     }
 
-    public async Task RegisterAsync(string username, string password)
+    public async Task RegisterAsync(User user)
     {
-        await userService.AddUserAsync(username,password);
+        await userService.AddUserAsync(user);
     }
 
     public async Task LogoutAsync()

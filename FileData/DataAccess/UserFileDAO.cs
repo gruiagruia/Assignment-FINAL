@@ -14,11 +14,14 @@ public class UserFileDAO : IUserDAO
 
     public async Task<User> GetUserAsync(string username)
     {
-        return  _jsonContext.Forum.Users.First((user => user.Name == username));
+        User user =  _jsonContext.Forum.Users.First((user => user.Name == username));
+        return user;
     }
 
-    public void AddUserAsync(string username, string password)
-    {
-        _jsonContext.Forum.Users.Add(new User(username,password,"user",5));
+    public async Task<User> AddUserAsync(User user)
+    { 
+        _jsonContext.Forum.Users.Add(user);
+        await _jsonContext.SaveChangesAsync();
+       return user;
     }
 }

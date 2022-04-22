@@ -18,8 +18,8 @@ public class UserServiceImpl : IUserService
         return await _userDao.GetUserAsync(username);
     }
 
-    public async Task AddUserAsync(string username, string password)
+    public async Task AddUserAsync(User user)
     {
-        _userDao.AddUserAsync(username, password);
+       await _userDao.AddUserAsync(user);
     }
 }

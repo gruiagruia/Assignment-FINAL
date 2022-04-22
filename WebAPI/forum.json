@@ -1,0 +1,29 @@
+{
+  "Users": [
+    {
+      "Name": "Test",
+      "Password": "Test1234",
+      "Role": "USER",
+      "SecurityLevel": 5
+    },
+    {
+      "Name": "Gruia",
+      "Password": "Pass1234",
+      "Role": "USER",
+      "SecurityLevel": 5
+    },
+    {
+      "Name": "Pass",
+      "Password": "Pass1234",
+      "Role": "USER",
+      "SecurityLevel": 5
+    },
+    {
+      "Name": "Test1",
+      "Password": "Test2",
+      "Role": "USER",
+      "SecurityLevel": 5
+    }
+  ],
+  "Posts": []
+}
