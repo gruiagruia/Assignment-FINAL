@@ -13,10 +13,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
-builder.Services.AddScoped<IUserService, UserServiceImpl>();
-builder.Services.AddScoped<IPostService,PostServiceImpl>();
-builder.Services.AddScoped<IUserDAO, UserHttpClient>();
-builder.Services.AddScoped<IPostDAO, PostHttpClient>();
+builder.Services.AddScoped<IUserService, UserHttpClient>();
+builder.Services.AddScoped<IPostService,PostHttpClient>();
+
 
 var app = builder.Build();
 

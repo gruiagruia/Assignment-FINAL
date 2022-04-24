@@ -1,11 +1,12 @@
 using System.Text;
 using System.Text.Json;
 using Application.DAOs;
+using Contracts;
 using Entities.Models;
 
 namespace HttpServices;
 
-public class PostHttpClient : IPostDAO
+public class PostHttpClient : IPostService
 {
     public async Task<ICollection<Post>> GetAsync()
     {

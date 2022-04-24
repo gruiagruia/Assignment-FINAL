@@ -1,4 +1,5 @@
 using Application.DAOs;
+using Contracts;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,11 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class PostsController : ControllerBase
 {
-    private IPostDAO _postDao;
+    private IPostService _postService;
 
-    public PostsController(IPostDAO postDao)
+    public PostsController(IPostService postService)
     {
-        _postDao = postDao;
+        _postService = postService;
     }
 
     [HttpGet]
@@ -20,7 +21,7 @@ public class PostsController : ControllerBase
     {
         try
         {
-            ICollection<Post> posts = await _postDao.GetAsync();
+            ICollection<Post> posts = await _postService.GetAsync();
             return Ok(posts);
         }
         catch (Exception e)
@@ -33,8 +34,8 @@ public class PostsController : ControllerBase
     public async Task<ActionResult<Post>> AddPost([FromBody] Post post)
     {
         try
-        {
-            Post added = await _postDao.AddAsync(post);
+        {    
+            Post added = await _postService.AddAsync(post);
             return Created($"/posts/{added.Id}", added);
         }
         catch (Exception e)
@@ -44,13 +45,12 @@ public class PostsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/posts/{id}")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<ActionResult<Post>> GetById([FromBody] int id)
+    [Route("{id:int}")]
+    public async Task<ActionResult<Post>> GetById([FromRoute] int id)
     {
         try
         {
-            ICollection<Post> posts = await _postDao.GetAsync();
+            ICollection<Post> posts = await _postService.GetAsync();
             return posts.First(t => t.Id == id);
 
         }

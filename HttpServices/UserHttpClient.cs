@@ -1,11 +1,12 @@
 using System.Text;
 using System.Text.Json;
 using Application.DAOs;
+using Contracts;
 using Entities.Models;
 
 namespace HttpServices;
 
-public class UserHttpClient : IUserDAO
+public class UserHttpClient : IUserService
 {
     private IUserDAO _userDao;
 
@@ -32,7 +33,7 @@ public class UserHttpClient : IUserDAO
         
     }
 
-    public async Task<User> AddUserAsync(User user)
+    public async Task AddUserAsync(User user)
     {
         Console.WriteLine(user.ToString());
         HttpClientHandler clientHandler = new HttpClientHandler();
@@ -50,12 +51,6 @@ public class UserHttpClient : IUserDAO
         {
             throw new Exception($"Error: {response.StatusCode}, {responseContent}");
         }
-    
-        User returned = JsonSerializer.Deserialize<User>(responseContent, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-    
-        return returned;
+        
     }
 }

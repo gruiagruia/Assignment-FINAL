@@ -1,4 +1,5 @@
 using Application.DAOs;
+using Contracts;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,11 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class UsersController : ControllerBase
 {
-    private IUserDAO _userDao;
+    private IUserService _userService;
 
-    public UsersController(IUserDAO userDao)
+    public UsersController(IUserService userService)
     {
-        _userDao = userDao;
+        _userService = userService;
     }
 
     [HttpGet,Route("{username}")]
@@ -20,7 +21,7 @@ public class UsersController : ControllerBase
     {
         try
         {
-            User user = await _userDao.GetUserAsync(username);
+            User user = await _userService.GetUserAsync(username);
             return Ok(user);
         }
         catch (Exception e)
@@ -34,7 +35,7 @@ public class UsersController : ControllerBase
     {
         try
         {
-            await _userDao.AddUserAsync(user);
+            await _userService.AddUserAsync(user);
             return Created($"/users/{user.Name}", user);
         }
         catch (Exception e)

@@ -23,7 +23,26 @@
       "Password": "Test2",
       "Role": "USER",
       "SecurityLevel": 5
+    },
+    {
+      "Name": "Mihai",
+      "Password": "sex",
+      "Role": "sdsd",
+      "SecurityLevel": 3
     }
   ],
-  "Posts": []
+  "Posts": [
+    {
+      "Id": 1,
+      "Owner": "sdsd",
+      "Title": "dsds",
+      "Body": "dsds"
+    },
+    {
+      "Id": 2,
+      "Owner": "ghghg",
+      "Title": "fdhfhd",
+      "Body": "fhfh"
+    }
+  ]
 }
