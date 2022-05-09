@@ -4,6 +4,7 @@ namespace Entities.Models;
 
 public class Post
 {
+    [Key]
     public int Id { get; set; }
     public string Owner { get; set; }
     [Required,MaxLength(128)]
@@ -16,6 +17,11 @@ public class Post
         Owner = owner;
         Title = title;
         Body = body;
+    }
+
+    public Post(int id)
+    {
+        Id = id;
     }
 
     public Post()

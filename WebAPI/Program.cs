@@ -1,7 +1,13 @@
 using Application.DAOs;
 using Application.Logic;
 using Contracts;
+using EfcData;
 using FileData.DataAccess;
+
+using (PostContext ctx = new())
+{
+    ctx.Seed();
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +17,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IUserService, UserServiceImpl>();
-builder.Services.AddScoped<IPostService, PostServiceImpl>();
+builder.Services.AddScoped<IUserService, UserSqliteDAO>();
+builder.Services.AddScoped<IPostService, PostSqliteDAO>();
 builder.Services.AddScoped<IPostDAO, PostFileDAO>();
 builder.Services.AddScoped<IUserDAO, UserFileDAO>();
-builder.Services.AddScoped<JsonContext>();
+builder.Services.AddScoped<PostContext>();
+builder.Services.AddScoped<UserContext>();
+
 
 var app = builder.Build();
 
